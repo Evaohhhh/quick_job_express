@@ -5,10 +5,10 @@ var bodyParser = require('body-parser');
 const { json } = require('body-parser');
 
 
-// /* GET home page. */
-// router.get('/', function(req, res, next) {
-//   res.render('index', { title: 'Express' });
-// });
+/* GET home page. */
+router.get('/', function(req, res, next) {
+  res.render('index', { title: 'Express' });
+});
 
 // // 这里挂载对应的路由  示例
 // router.get('/get', (req, res) => {
