@@ -97,14 +97,14 @@ router.post('/register/first', (req, res) => {
       let result = {status:1 ,msg:'该手机号已被注册'};
       res.json(result)
   }else{
-    var sql2 = 'INSERT INTO User (u_phone,u_code,u_identity,is_certify,u_pic) VALUES (?,?,?,?,?)';
+    var sql2 = 'INSERT INTO User (u_phone,u_code,u_identity,u_is_certify,u_pic) VALUES (?,?,?,?,?)';
     var params = [phone,code,identity,is_certify,pic];
-    db.query(sql2, params, function (results, fields) {
-      console.log(results);
+    db.query(sql2, params, function (results1, fields) {
+      console.log(results1);
       res.send({
         status: 0,
         msg: '注册成功',
-        data: results,
+        data: results1,
       });
     })
   }
