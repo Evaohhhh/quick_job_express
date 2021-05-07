@@ -124,4 +124,27 @@ router.post('/info”', (req, res) => {
 });
 
 
+/*
+获取所有用户信息 “/users/mget   get  
+先调用upload/img 那个接口，上传头像传回的地址 post 
+body:
+   {
+    "u_id": 1001,
+    "u_pic": "",
+  }
+*/
+router.post('/mget”', (req, res) => {
+  const body = req.body;
+  var sql = "select * from  user ";
+    db.query(sql,[], function (results, fields) {
+      console.log(results);
+      res.send({
+        status: 1,
+        msg: '获取成功',
+        data: results,
+      });
+    })
+});
+
+
 module.exports = router;

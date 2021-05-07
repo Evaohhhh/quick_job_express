@@ -87,6 +87,26 @@ router.post('/get', (req, res) => {
   })
 });
 
+/*
+获取所哟 “/mget   get
+body:{
+  type: '4',
+}   
+*/
+router.post('/mget', (req, res) => {
+  const body = req.body;
+  var type = body.type;
+  var sql = "select * from  Message ";
+  db.query(sql, [], function (results, fields) {
+    console.log(results);
+    res.send({
+      status: 1,
+      msg: '所有消息获取成功',
+      data: results,
+    });
+  })
+});
+
 
 
 

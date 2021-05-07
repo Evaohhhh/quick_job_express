@@ -189,4 +189,22 @@ router.post('/fail', (req, res) => {
 });
 
 
+/*
+获取所有投递信息 “/push/mget   get
+*/
+router.post('/push/mget', (req, res) => {
+  const body = req.body;
+  var type = body.type;
+  var sql = "select * from  push ";
+  db.query(sql, [], function (results, fields) {
+    console.log(results);
+    res.send({
+      status: 1,
+      msg: '所有投递信息获取成功',
+      data: results,
+    });
+  })
+});
+
+
 module.exports = router;

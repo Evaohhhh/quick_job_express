@@ -82,7 +82,6 @@ router.post('/reply', (req, res) => {
 
 /*
 获取评论 “/comment/get   post  
-先调用upload/img 那个接口，上传头像传回的地址 post 
 body:
    {
     "n_id": 1001,
@@ -103,6 +102,8 @@ router.post('/get', (req, res) => {
     })
 });
 
+
+
 /*
 删除评论 “/comment/delete   post  
 先调用upload/img 那个接口，上传头像传回的地址 post 
@@ -120,6 +121,26 @@ router.post('/delete', (req, res) => {
       res.send({
         status: 1,
         msg: '删除评论成功',
+        data: results,
+      });
+    })
+});
+
+/*
+获取所有评论信息 “/comment/mget   ge t  
+body:
+   {
+    "n_id": 1001,
+  }
+*/
+router.post('/mget', (req, res) => {
+  const body = req.body;
+  var sql = "select * from comment";
+    db.query(sql, [], function (results, fields) {
+      console.log(results);
+      res.send({
+        status: 1,
+        msg: '获取评论信息成功',
         data: results,
       });
     })
