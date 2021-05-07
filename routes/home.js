@@ -192,7 +192,7 @@ router.post('/fail', (req, res) => {
 /*
 获取所有投递信息 “/push/mget   get
 */
-router.post('/push/mget', (req, res) => {
+router.get('/push/mget', (req, res) => {
   const body = req.body;
   var type = body.type;
   var sql = "select * from  push ";

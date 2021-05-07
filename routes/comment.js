@@ -133,7 +133,7 @@ body:
     "n_id": 1001,
   }
 */
-router.post('/mget', (req, res) => {
+router.get('/mget', (req, res) => {
   const body = req.body;
   var sql = "select * from comment";
     db.query(sql, [], function (results, fields) {

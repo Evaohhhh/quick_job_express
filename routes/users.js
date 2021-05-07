@@ -133,7 +133,7 @@ body:
     "u_pic": "",
   }
 */
-router.post('/mget”', (req, res) => {
+router.get('/mget”', (req, res) => {
   const body = req.body;
   var sql = "select * from  user ";
     db.query(sql,[], function (results, fields) {

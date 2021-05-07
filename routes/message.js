@@ -93,7 +93,7 @@ body:{
   type: '4',
 }   
 */
-router.post('/mget', (req, res) => {
+router.get('/mget', (req, res) => {
   const body = req.body;
   var type = body.type;
   var sql = "select * from  Message ";
