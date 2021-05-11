@@ -15,16 +15,18 @@ var db = require("../conf/db")
 企业验证接口  “/users/verify”   post   
 body:
    {
+    "u_id": 1002
     "c_name": "腾讯",
     "c_job": "产品经理",
     "c_job_pic": "13360778534",  //工作证图片
     "c_pic": "333444555",  //企业营业执照图片
-    "c_department": "2022",
-    "c_info": "数字媒体技术",
+    "c_department": "2022",  //部门
+    "c_info": "数字媒体技术", // 备注
   }
 */
 router.post('/verify', (req, res) => {
   const body = req.body;
+  var u_id = req.u_id;
   var name = body.name;
   var department = body.department;
   var job = body.job;
@@ -32,7 +34,7 @@ router.post('/verify', (req, res) => {
   var pic2 = body.pic2;
   var info = body.info;
 
-  var sql = 'INSERT INTO User (c_name,c_department,c_job,c_job_pic,c_pic,c_info) VALUES (?,?,?,?,?,?)';
+  var sql = "INSERT INTO User (c_name,c_department,c_job,c_job_pic,c_pic,c_info) VALUES (?,?,?,?,?,?) where u_id = '"+u_id+"'";
     var params = [name,department,job,pic1,pic2,info];
     db.query(sql, params, function (results, fields) {
       console.log(results);

@@ -17,6 +17,7 @@ var upload_files = multer({
   dest: '../public/temp_files'
 })
 
+//upload/img  上传图片
 router.post('/img',upload_img.any(), function (req, res, next) {
   console.log(req.files[0]);
   //读取文件路径(uploads/文件夹下面的新建的图片地址)c
@@ -37,11 +38,16 @@ router.post('/img',upload_img.any(), function (req, res, next) {
     fs.writeFile(path.join(__dirname,'../public/temp_img/'+keepname),data,(err)=>{
       console.log(err);
         if(err){return res.send('写入失败')}
-        res.send({err:0,msg:'上传ok',data:'../public/temp_img/'+keepname})
+        res.send({
+          mag:'upload success',                    
+          filename: req.files[0].originalname,                    
+          location :"http://8.129.1.95:3001/img?name="+keepname
+        }) 
     });
   });
 });
 
+//上传文件
 router.post('/files',upload_files.any(), function (req, res, next) {
   console.log(req.files[0]);
   //读取文件路径(uploads/文件夹下面的新建的图片地址)c
@@ -57,10 +63,15 @@ router.post('/files',upload_files.any(), function (req, res, next) {
     //1.图片的绝对路径
     //2.写入的内容
     //3.回调函数
-    fs.writeFile(path.join(__dirname,'../public/temp_files/'+time+'.'+keepname),data,(err)=>{
+
+    fs.writeFile(path.join(__dirname,'../public/temp_files/'+keepname),data,(err)=>{
       console.log(err);
         if(err){return res.send('写入失败')}
-        res.send({err:0,msg:'上传ok',data:'../public/temp_files/'+time+'.'+keepname})
+        res.send({
+          mag:'upload success',                    
+          filename: req.files[0].originalname,                    
+          location :"http://8.129.1.95:3001/file?name="+keepname
+        }) 
     });
   });
 });

@@ -12,6 +12,7 @@ body:
     "job_name": "产品经理",  
     "job_intro": "333444555", 
     "c_intro": "负责公司服务端系统以及平台的工程架构设计和研发;负责服务性能优化、稳定性建设;与产品经理、前端工程师一起负责需求的拆解、方案设计和功能开发",
+    "job_demand": "岗位要求"
     "n_phone": "13925531258",
     "c_job": "产品经理",
     "c_name": "字节跳动", 
@@ -33,6 +34,7 @@ router.post('/release', (req, res) => {
   var job_name = body.job_name;
   var job_intro = body.job_intro;
   var c_intro = body.c_intro;
+  var job_demand = body.job_demand;
   var n_phone = body.n_phone;
   var c_name = body.c_name;
   var n_email = body.n_email;
@@ -45,8 +47,8 @@ router.post('/release', (req, res) => {
   var way_intro = body.way_intro;
   var city = body.city;
 
-  var sql = 'INSERT INTO JobInfo (post_u_id,n_type,job_name,job_intro,c_intro,n_phone,c_name,n_email,begin_time,end_time,status,n_other,job_dirction,is_this,way_intro,city) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)';
-    var params = [u_id,n_type,job_name,job_intro,c_intro,n_phone,c_name,n_email,begin_time,end_time,status,n_other,job_dirction,is_this,way_intro,city];
+  var sql = 'INSERT INTO JobInfo (post_u_id,n_type,job_name,job_intro,c_intro,job_demand,n_phone,c_name,n_email,begin_time,end_time,status,n_other,job_dirction,is_this,way_intro,city) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)';
+    var params = [u_id,n_type,job_name,job_intro,c_intro,job_demand,n_phone,c_name,n_email,begin_time,end_time,status,n_other,job_dirction,is_this,way_intro,city];
     db.query(sql, params, function (results, fields) {
       console.log(results);
       res.send({
@@ -57,9 +59,28 @@ router.post('/release', (req, res) => {
     })
 });
 
+/* 
+home/see
+内推信息浏览量 +1  get
+nid
+*/
+router.get('/see', (req, res) => {
+  const query = req.query;
+  var nid = query.nid;
+  var sql = "update JobInfo set n_eye_num = n_eye_num + 1 where n_id = '"+nid+"'";
+    db.query(sql, [], function (results, fields) {
+      console.log(results);
+      res.send({
+        status: 1,
+        msg: '浏览量+1',
+        data: results,
+      });
+    })
+});
+
+
 /*
 获取内推信息接口  “/home/info" get  
-
 */
 router.get('/info', (req, res) => {
   const body = req.body;

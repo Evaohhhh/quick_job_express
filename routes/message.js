@@ -31,6 +31,7 @@ router.post('/send', (req, res) => {
   var content = body.content;
 
   var current_time =  moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
+  console.log(current_time);
   var sql = 'INSERT INTO Message (t_uid,r_uid,type,status,content,date) VALUES (?,?,?,?,?,?)';
     var params = [t_uid,r_uid,type,status,content,current_time];
     db.query(sql, params, function (results, fields) {
