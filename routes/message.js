@@ -89,10 +89,8 @@ router.post('/get', (req, res) => {
 });
 
 /*
-获取所哟 “/mget   get
-body:{
-  type: '4',
-}   
+获取所有消息 “/message/mget   get
+ 
 */
 router.get('/mget', (req, res) => {
   const body = req.body;

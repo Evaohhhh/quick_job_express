@@ -57,8 +57,7 @@ router.post('/verify/pass', (req, res) => {
   const body = req.body;
   var u_id = body.u_id;
   var sql = "update User set u_is_certify = 1 where u_id  = '"+ u_id + "' ";
-    var params = [name,department,job,pic1,pic2,info];
-    db.query(sql, params, function (results, fields) {
+    db.query(sql, [], function (results, fields) {
       console.log(results);
       var current_time =  moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
       var sql2 = 'insert into message (r_uid,type,date,content,status) values(?,?,?,?,?)';
@@ -128,15 +127,9 @@ router.post('/info”', (req, res) => {
 
 /*
 获取所有用户信息 “/users/mget   get  
-先调用upload/img 那个接口，上传头像传回的地址 post 
-body:
-   {
-    "u_id": 1001,
-    "u_pic": "",
-  }
+
 */
 router.get('/mget”', (req, res) => {
-  const body = req.body;
   var sql = "select * from  user ";
     db.query(sql,[], function (results, fields) {
       console.log(results);

@@ -133,11 +133,8 @@ router.post('/delete', (req, res) => {
 });
 
 /*
-获取所有评论信息 “/comment/mget   ge t  
-body:
-   {
-    "n_id": 1001,
-  }
+获取所有评论信息 “/comment/mget   get  
+
 */
 router.get('/mget', (req, res) => {
   const body = req.body;
