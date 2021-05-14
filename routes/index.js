@@ -7,7 +7,7 @@ const { json } = require('body-parser');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.render('index', { title: '快推网' });
 });
 /*
 图片 显示下载   get

@@ -19,10 +19,10 @@ router.post('/push', (req, res) => {
   const body = req.body;
   var n_id = body.n_id;
   var c_uid = body.c_uid;
-  var c_info = body.c_info;
+  var c_text = body.c_text;
   var is_top = body.is_top;
   var current_time =  moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
-  var sql = "insert into comment (n_id,c_uid,c_info,is_top,time) values (?,?,?,?,?)";
+  var sql = "insert into `Comment` (n_id,c_uid,c_text,is_top,time) values (?,?,?,?,?)";
 
   params = [n_id,c_uid,c_info,is_top,current_time]
     db.query(sql, params, function (results, fields) {

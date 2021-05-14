@@ -110,7 +110,7 @@ body:{
 */
 router.post('/push', (req, res) => {
   const body = req.body;
-  var sql = 'Insert into push (info_id,t_uid,p_date,status,resume,place,zq_time) values(?,?,?,?,?,?,?)';
+  var sql = 'Insert into Push (info_id,t_uid,p_date,status,resume,place,zq_time) values(?,?,?,?,?,?,?)';
   var params = [body.info_id,body.t_uid,body.p_date,body.status,body.resume,body.place,body.zq_time];
     db.query(sql, params, function (results, fields) {
       console.log(results);
@@ -129,7 +129,7 @@ body:{
   "p_id": "1001"
 }
 */
-router.post('/see', (req, res) => {
+router.post('push/see', (req, res) => {
   var p_id = req.body.p_id;
   var sql = "update push set status = 2 where p_id = '" + p_id+"'";
     db.query(sql, [], function (results1, fields) {
@@ -159,7 +159,7 @@ body:{
   "p_id": 1001
 }
 */
-router.post('/pass', (req, res) => {
+router.post('push/pass', (req, res) => {
   var p_id = req.body.p_id;
   var sql = "update push set status = 3 where p_id = '" + p_id+"'";
     db.query(sql, [], function (results1, fields) {
@@ -189,7 +189,7 @@ body:{
   "p_id": "1001"
 }
 */
-router.post('/fail', (req, res) => {
+router.post('push/fail', (req, res) => {
   var p_id = req.body.p_id;
   var sql = "update push set status = 4 where p_id = '" + p_id+"'";
     db.query(sql, [], function (results1, fields) {
@@ -217,7 +217,7 @@ router.post('/fail', (req, res) => {
 router.get('/push/mget', (req, res) => {
   const body = req.body;
   var type = body.type;
-  var sql = "select * from  push ";
+  var sql = "select * from  `Push` ";
   db.query(sql, [], function (results, fields) {
     console.log(results);
     res.send({
