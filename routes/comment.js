@@ -92,8 +92,8 @@ body:
 router.post('/get', (req, res) => {
   const body = req.body;
   var n_id = body.n_id;
-
-  var sql = "select * from comment, user where comment.c_uid = user.u_id and n_id = '"+n_id+"' order by time";
+//select * from `Comment` c, `User` u where c.c_uid = u.u_id and n_id = 1002 order by time
+  var sql = "select * from `Comment` c, `User` u where c.c_uid = u.u_id  and n_id = '"+n_id+"' order by time";
     db.query(sql, [], function (results, fields) {
       console.log(results);
       res.send({
