@@ -62,12 +62,13 @@ router.post('/release', (req, res) => {
 /* 
 home/see
 内推信息浏览量 +1  get
+/see?nid=1002
 nid
 */
 router.get('/see', (req, res) => {
   const query = req.query;
-  var nid = query.nid;
-  var sql = "update JobInfo set n_eye_num = n_eye_num + 1 where n_id = '"+nid+"'";
+  var n_id = query.n_id;
+  var sql = "update JobInfo set n_eye_num = n_eye_num + 1 where n_id = '"+n_id+"'";
     db.query(sql, [], function (results, fields) {
       console.log(results);
       res.send({
