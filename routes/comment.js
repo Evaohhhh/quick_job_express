@@ -134,7 +134,7 @@ router.post('/delete', (req, res) => {
 */
 router.get('/mget', (req, res) => {
   const body = req.body;
-  var sql = "select * from comment";
+  var sql = "select * from `comment` ";
     db.query(sql, [], function (results, fields) {
       console.log(results);
       res.send({

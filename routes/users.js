@@ -130,7 +130,7 @@ router.post('/info”', (req, res) => {
 
 */
 router.get('/mget”', (req, res) => {
-  var sql = "select * from  user ";
+  var sql = "select * from  `user` ";
     db.query(sql,[], function (results, fields) {
       console.log(results);
       res.send({

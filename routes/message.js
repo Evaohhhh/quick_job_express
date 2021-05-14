@@ -95,7 +95,7 @@ router.post('/get', (req, res) => {
 router.get('/mget', (req, res) => {
   const body = req.body;
   var type = body.type;
-  var sql = "select * from  Message ";
+  var sql = "select * from   `Message` ";
   db.query(sql, [], function (results, fields) {
     console.log(results);
     res.send({
