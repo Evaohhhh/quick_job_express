@@ -54,9 +54,7 @@ router.post('/reply', (req, res) => {
   const body = req.body;
   var c_id = body.c_id;
   var c_reply = body.c_reply;
-  var c_uid = body.c_uid;
   var r_uid = body.r_uid;
-  var n_id = body.n_id;
   var sql = "update comment set c_reply = '"+c_reply+"' ,r_uid = '"+r_uid+"' where c_id = '"+c_id+"'";
     db.query(sql, [], function (results, fields) {
       console.log(results);

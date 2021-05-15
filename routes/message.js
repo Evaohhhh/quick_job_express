@@ -26,8 +26,8 @@ router.post('/send', (req, res) => {
   const body = req.body;
   var t_uid = body.t_uid;
   var r_uid = body.r_uid;
-  var type = body.type;
-  var status = body.status;
+  var type = 4;
+  var status = 0;
   var content = body.content;
 
   var current_time =  moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
@@ -69,20 +69,20 @@ router.post('/see', (req, res) => {
 
 
 /*
-获取私信内容  “/get   post
+获取私信内容  “/get   get
 body:{
   type: '4',
 }   
 */
 router.post('/get', (req, res) => {
-  const body = req.body;
-  var type = body.type;
-  var sql = "select * from  Message where type = '"+type+"'";
+  const query = req.query;
+  var type = query.type;
+  var sql = "select * from  `Message` where type = '"+type+"'";
   db.query(sql, [], function (results, fields) {
     console.log(results);
     res.send({
       status: 1,
-      msg: '私信已查看',
+      msg: '获取成功',
       data: results,
     });
   })
@@ -95,7 +95,7 @@ router.post('/get', (req, res) => {
 router.get('/mget', (req, res) => {
   const body = req.body;
   var type = body.type;
-  var sql = "select * from   `Message` ";
+  var sql = "select * from  `Message` ";
   db.query(sql, [], function (results, fields) {
     console.log(results);
     res.send({
