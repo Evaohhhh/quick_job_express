@@ -5,28 +5,24 @@ var moment = require('moment');
 
 
 /*
-发表评论 “/comment/push”   post  
+发表评论 “/comment/push”   get  
 body:
    {
     "n_id": 1002,
     "c_uid": "1002",
     "c_info": "hello world",
-    "is_top": "1",
-
   }
 */
 router.post('/push', (req, res) => {
-  const body = req.body;
-  var n_id = body.n_id;
-  var c_uid = body.c_uid;
-  var c_text = body.c_text;
-  var is_top = body.is_top;
+  const query = req.query;
+  var n_id = query.n_id;
+  var c_uid = query.c_uid;
+  var c_text = query.c_text;
+  var is_top = 1;
   var current_time =  moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
   var sql = "insert into `Comment` (n_id,c_uid,c_text,is_top,time) values (?,?,?,?,?)";
-
   params = [n_id,c_uid,c_text,is_top,current_time]
     db.query(sql, params, function (results, fields) {
-
       var sql1 = "update jobInfo set n_com_num = n_com_num + 1 where n_id = '"+n_id+"'";  //评论成功后，评论数加一
         db.query(sql1, [], function (results1, fields) {
           console.log(results1);
@@ -81,7 +77,7 @@ router.post('/reply', (req, res) => {
 
 
 /*
-获取评论 “/comment/get   post  
+获取评论 “/comment/get   post
 body:
    {
     "n_id": 1001,
