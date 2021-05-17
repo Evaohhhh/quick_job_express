@@ -111,7 +111,7 @@ body:
 router.post('/delete', (req, res) => {
   const body = req.body;
   var c_id = body.c_id;
-  var sql = "delete * from comment where c_id = '"+c_id+"' ";
+  var sql = "delete * from `Comment` where c_id = '"+c_id+"' ";
     db.query(sql, [], function (results, fields) {
       console.log(results);
       res.send({
