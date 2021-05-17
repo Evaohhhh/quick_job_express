@@ -13,7 +13,7 @@ body:
     "c_info": "hello world",
   }
 */
-router.post('/push', (req, res) => {
+router.get('/push', (req, res) => {
   const query = req.query;
   var n_id = query.n_id;
   var c_uid = query.c_uid;
