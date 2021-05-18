@@ -5,7 +5,7 @@ var moment = require('moment');
 
 
 /*
-发表评论 “/comment/push”   get  
+发表评论 “/comment/push”   POST  
 body:
    {
     "n_id": 1002,
@@ -13,11 +13,11 @@ body:
     "c_info": "hello world",
   }
 */
-router.get('/push', (req, res) => {
-  const query = req.query;
-  var n_id = query.n_id;
-  var c_uid = query.c_uid;
-  var c_text = query.c_text;
+router.post('/push', (req, res) => {
+  const body = req.body;
+  var n_id = body.n_id;
+  var c_uid = body.c_uid;
+  var c_text = body.c_text;
   var is_top = 1;
   var current_time =  moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
   var sql = "insert into `Comment` (n_id,c_uid,c_text,is_top,time) values (?,?,?,?,?)";
