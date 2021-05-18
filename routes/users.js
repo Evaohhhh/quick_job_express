@@ -141,5 +141,18 @@ router.get('/mget”', (req, res) => {
     })
 });
 
+//获取企业认证信息 "/users/get/com" get
+router.get('/get/com', (req, res) => {
+  var sql = "select * from `User` where c_name is not null"
+  db.query(sql,[], function (results, fields) {
+    console.log(results);
+    res.send({
+      status: 1,
+      msg: '获取数据成功',
+      data: results,
+    });
+  })
+})
+
 
 module.exports = router;
