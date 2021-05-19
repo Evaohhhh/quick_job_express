@@ -26,7 +26,7 @@ router.post('/push', (req, res) => {
       res.send({
         status: 1,
         msg: '发表评论成功',
-        data: results1,
+        data: results,
       });
     });
 });
@@ -54,7 +54,7 @@ router.post('/reply', (req, res) => {
     res.send({
       status: 1,
       msg: '回复评论成功',
-      data: results2,
+      data: results,
     });  
   })
 
