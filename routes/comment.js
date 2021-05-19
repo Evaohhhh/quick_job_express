@@ -20,18 +20,14 @@ router.post('/push', (req, res) => {
   var c_text = body.c_text;
   var is_top = 1;
   var current_time =  moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
-  var sql = "insert into `Comment` (n_id,c_uid,c_text,is_top,time) values (?,?,?,?,?)";
+  var sql = "insert into `Comment` (n_id,c_uid,c_text,is_top,time) values (?,?,?,?,?); update `JobInfo` set n_com_num = n_com_num + 1 where n_id = '"+n_id+"';";
   params = [n_id,c_uid,c_text,is_top,current_time]
     db.query(sql, params, function (results, fields) {
-      var sql1 = "update jobInfo set n_com_num = n_com_num + 1 where n_id = '"+n_id+"'";  //评论成功后，评论数加一
-        db.query(sql1, [], function (results1, fields) {
-          console.log(results1);
-          res.send({
-            status: 1,
-            msg: '发表评论成功',
-            data: results1,
-          });
-        });
+      res.send({
+        status: 1,
+        msg: '发表评论成功',
+        data: results1,
+      });
     });
 });
 
@@ -51,26 +47,16 @@ router.post('/reply', (req, res) => {
   var c_id = body.c_id;
   var c_reply = body.c_reply;
   var r_uid = body.r_uid;
-  var sql = "update comment set c_reply = '"+c_reply+"' ,r_uid = '"+r_uid+"' where c_id = '"+c_id+"'";
-    db.query(sql, [], function (results, fields) {
-      console.log(results);
-      // res.send({
-      //   status: 1,
-      //   msg: '回复成功',
-      //   data: results,
-      // });
-      var current_time =  moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
-        var sql2 = 'insert into message (r_uid,t_uid,n_id,type,date,content,status) values(?,?,?,?,?,?,?)';
-        params = [c_uid,r_uid,n_id,'3',current_time,'您的评论已被回复','0'];
-        db.query(sql2, params, function (results2, fields) {
-          console.log(results2);
-          res.send({
-            status: 1,
-            msg: '回复评论成功',
-            data: results2,
-          });  
-        })
-    })
+  var current_time =  moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
+  var sql = "update comment set c_reply = '"+c_reply+"' ,r_uid = '"+r_uid+"' where c_id = '"+c_id+"';insert into message (r_uid,t_uid,n_id,type,date,content,status) values(?,?,?,?,?,?,?)";
+  params = [c_uid,r_uid,n_id,'3',current_time,'您的评论已被回复','0'];
+  db.query(sql, params, function (results, fields) {
+    res.send({
+      status: 1,
+      msg: '回复评论成功',
+      data: results2,
+    });  
+  })
 
     
 });
