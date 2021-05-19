@@ -24,7 +24,7 @@ router.post('/push', (req, res) => {
   var sql2 = "update `JobInfo` set n_com_num = n_com_num + 1 where n_id = '"+n_id+"'"
   //; update `JobInfo` set n_com_num = n_com_num + 1 where n_id = '"+n_id+"'
   params = [n_id,c_uid,c_text,is_top,current_time]
-    db.query(sql, params,sql2, function (results, fields) {
+    db.query(sql1, params,sql2, function (results, fields) {
       res.send({
         status: 1,
         msg: '发表评论成功',
