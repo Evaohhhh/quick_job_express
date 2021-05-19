@@ -20,10 +20,11 @@ router.post('/push', (req, res) => {
   var c_text = body.c_text;
   var is_top = 1;
   var current_time =  moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
-  var sql = "insert into `Comment` (n_id,c_uid,c_text,is_top,time) values (?,?,?,?,?);";
+  var sql1 = "insert into `Comment` (n_id,c_uid,c_text,is_top,time) values (?,?,?,?,?);";
+  var sql2 = "update `JobInfo` set n_com_num = n_com_num + 1 where n_id = '"+n_id+"'"
   //; update `JobInfo` set n_com_num = n_com_num + 1 where n_id = '"+n_id+"'
   params = [n_id,c_uid,c_text,is_top,current_time]
-    db.query(sql, params, function (results, fields) {
+    db.query(sql, params,sql2, function (results, fields) {
       res.send({
         status: 1,
         msg: '发表评论成功',
@@ -31,6 +32,22 @@ router.post('/push', (req, res) => {
       });
     });
 });
+
+//评论数 +1 “/comment/push/success” get  n_id
+router.post('/push/success', (req, res) => {
+  const query = req.query;
+  var n_id = query.n_id;
+  var sql = "update `JobInfo` set n_com_num = n_com_num + 1 where n_id = '"+n_id+"'";
+  params = [n_id,c_uid,c_text,is_top,current_time]
+    db.query(sql, params, function (results, fields) {
+      res.send({
+        status: 1,
+        msg: '评论数+1成功',
+        data: results,
+      });
+    });
+});
+
 
 /*
 回复评论 “/comment/reply   post  
@@ -48,20 +65,40 @@ router.post('/reply', (req, res) => {
   var c_id = body.c_id;
   var c_reply = body.c_reply;
   var r_uid = body.r_uid;
-  var current_time =  moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
-  var sql = "update comment set c_reply = '"+c_reply+"' ,r_uid = '"+r_uid+"' where c_id = '"+c_id+"';insert into message (r_uid,t_uid,n_id,type,date,content,status) values(?,?,?,?,?,?,?)";
-  params = [c_uid,r_uid,n_id,'3',current_time,'您的评论已被回复','0'];
+  var sql = "update comment set c_reply = '"+c_reply+"' ,r_uid = '"+r_uid+"' where c_id = '"+c_id+"'";
   db.query(sql, params, function (results, fields) {
     res.send({
       status: 1,
       msg: '回复评论成功',
       data: results,
     });  
-  })
-
-    
+  })   
 });
 
+/*您的评论被回复 消息 “/comment/reply/message"  post  
+body:
+  {
+    'r_uid': 1002
+    't_uid': 1004
+    'n_id': 1003
+  }
+  */
+  router.post('/reply/message', (req, res) => {
+    const body = req.body;
+    var r_uid = body.r_uid;
+    var t_uid = body.t_uid;
+    var n_id = body.n_id;
+    var current_time =  moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
+    var sql = "insert into message (r_uid,t_uid,n_id,type,date,content,status) values(?,?,?,?,?,?,?)";
+    params = [r_uid,r_uid,n_id,'3',current_time,'您的评论已被回复','0'];
+    db.query(sql, params, function (results, fields) {
+      res.send({
+        status: 1,
+        msg: '回复评论成功',
+        data: results,
+      });  
+    })   
+  });
 
 /*
 获取评论 “/comment/get   post
