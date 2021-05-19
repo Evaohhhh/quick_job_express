@@ -20,11 +20,10 @@ router.post('/push', (req, res) => {
   var c_text = body.c_text;
   var is_top = 1;
   var current_time =  moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
-  var sql1 = "insert into `Comment` (n_id,c_uid,c_text,is_top,time) values (?,?,?,?,?);";
-  var sql2 = "update `JobInfo` set n_com_num = n_com_num + 1 where n_id = '"+n_id+"'"
+  var sql = "insert into `Comment` (n_id,c_uid,c_text,is_top,time) values (?,?,?,?,?);";
   //; update `JobInfo` set n_com_num = n_com_num + 1 where n_id = '"+n_id+"'
   params = [n_id,c_uid,c_text,is_top,current_time]
-    db.query(sql1, params,sql2, function (results, fields) {
+    db.query(sql, params, function (results, fields) {
       res.send({
         status: 1,
         msg: '发表评论成功',
@@ -75,7 +74,7 @@ router.post('/reply', (req, res) => {
   })   
 });
 
-/*您的评论被回复 消息 “/comment/reply/message"  post  
+/*您的评论被回复 消息 “/comment/reply/message   post  
 body:
   {
     'r_uid': 1002
