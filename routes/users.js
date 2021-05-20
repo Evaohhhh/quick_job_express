@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var db = require("../conf/db")
-
+var moment = require('moment');
 
 // router.get("/userList", (req, res, next) => {
 //   // sql查询user表
