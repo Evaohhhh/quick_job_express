@@ -101,7 +101,7 @@ body:
 router.post('/info”', (req, res) => {
   const body = req.body;
   var u_id = body.u_id;
-  var sql = "select * from user INTO User where u_id = '"+u_id+"'";
+  var sql = "select * from `User` where u_id = '"+u_id+"'";
     db.query(sql,[], function (results, fields) {
       console.log(results);
       res.send({
