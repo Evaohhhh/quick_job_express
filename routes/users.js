@@ -73,7 +73,7 @@ router.post('/verify/pass', (req, res) => {
   const body = req.body;
   var u_id = body.u_id;
   var current_time =  moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
-  var sql = 'insert into message (r_uid,type,date,content,status) values(?,?,?,?,?)';
+  var sql = 'Insert into `Message` (r_uid,type,date,content,status) values(?,?,?,?,?)';
   params = [u_id,'1',current_time,'您的企业认证已通过','0'];
   db.query(sql, params, function (results, fields) {
     console.log(results);
