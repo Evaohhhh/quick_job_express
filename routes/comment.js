@@ -37,8 +37,7 @@ router.post('/push/success', (req, res) => {
   const query = req.query;
   var n_id = query.n_id;
   var sql = "update `JobInfo` set n_com_num = n_com_num + 1 where n_id = '"+n_id+"'";
-  params = [n_id,c_uid,c_text,is_top,current_time]
-    db.query(sql, params, function (results, fields) {
+    db.query(sql, [], function (results, fields) {
       res.send({
         status: 1,
         msg: '评论数+1成功',
