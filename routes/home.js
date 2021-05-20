@@ -110,7 +110,7 @@ body:{
 */
 router.post('/push', (req, res) => {
   const body = req.body;
-  var sql = 'Insert into Push (info_id,t_uid,p_date,status,resume,place,zq_time) values(?,?,?,?,?,?,?)';
+  var sql = 'Insert into `Push` (info_id,t_uid,p_date,status,resume,place,zq_time) values(?,?,?,?,?,?,?)';
   var params = [body.info_id,body.t_uid,body.p_date,body.status,body.resume,body.place,body.zq_time];
     db.query(sql, params, function (results, fields) {
       console.log(results);
@@ -123,7 +123,7 @@ router.post('/push', (req, res) => {
 });
 
 /*
-查看投递信息接口  “/home/push/seek" post
+查看投递信息接口  “/home/push/see" post
 投递状态 1:未查看2:已查看3:已通过4:未通过
 body:{
   "p_id": "1001"
@@ -131,26 +131,40 @@ body:{
 */
 router.post('push/see', (req, res) => {
   var p_id = req.body.p_id;
-  var sql = "update push set status = 2 where p_id = '" + p_id+"'";
-    db.query(sql, [], function (results1, fields) {
-      db.query("select * from push where p_id=" + p_id, [], function (results2, fields) {
-        console.log(results2);
-        var current_time =  moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
-        var sql2 = 'insert into message (e_p_id,r_uid,n_id,type,date,content,status) values(?,?,?,?,?,?,?)';
-        params = [p_id,results2[0].t_uid,results2[0].info_id,'2',current_time,'您的投递已被查看','0'];
-        db.query(sql2, params, function (results3, fields) {
-          console.log(results3);
-          res.send({
-            status: 1,
-            msg: '您的投递已被查看，已发送消息给对方',
-            data: results3,
-          });  
-        })
-        
-      })
-      
+  var sql = "update `Push` set status = 2 where p_id = '" + p_id+"'";
+    db.query(sql, [], function (results, fields) {
+      res.send({
+        status: 1,
+        msg: '查看投递信息成功',
+        data: results,
+      });
     })
 });
+/**
+  查看投递信息接口消息接口  “/home/push/see/message" post
+  body:{
+    "p_id": 1002,
+    "r_uid": 1003,
+    "n_id": 1001,
+  }
+ */
+router.post('push/see/message', (req, res) => {
+  var p_id = req.body.p_id;
+  var r_uid = req.body.r_uid;
+  var n_id = req.body.n_id;
+  var type = 2;
+  var current_time =  moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
+  var sql = 'insert into `Message` (e_p_id,r_uid,n_id,type,date,content,status) values(?,?,?,?,?,?,?)';
+  params = [p_id,r_uid,n_id,type,current_time,'投递已被查看','0'];
+  db.query(sql, [], function (results, fields) {
+    res.send({
+      status: 1,
+      msg: '投递已被查看，已发送消息给对方',
+      data: results,
+    });
+  })
+});
+
 
 
 /*
@@ -162,26 +176,41 @@ body:{
 */
 router.post('push/pass', (req, res) => {
   var p_id = req.body.p_id;
-  var sql = "update push set status = 3 where p_id = '" + p_id+"'";
-    db.query(sql, [], function (results1, fields) {
-      db.query("select * from push where p_id=" + p_id, [], function (results2, fields) {
-        console.log(results2);
-        var current_time =  moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
-        var sql2 = 'insert into message (e_p_id,r_uid,n_id,type,date,content,status) values(?,?,?,?,?,?,?)';
-        params = [p_id,results2[0].t_uid,results2[0].info_id,'2',current_time,'您的投递已通过','0'];
-        db.query(sql2, params, function (results3, fields) {
-          console.log(results3);
-          res.send({
-            status: 1,
-            msg: '您的投递已通过，已发送消息给对方',
-            data: results3,
-          });  
-        })
-        
-      })
+  var sql = "Update `Push` set status = 3 where p_id = '" + p_id+"'";
+    db.query(sql, [], function (results, fields) {
+      res.send({
+        status: 1,
+        msg: '通过投递信息',
+        data: results,
+      });
       
     })
 });
+
+/**
+  通过投递信息接口消息接口  “/home/push/pass/message" post
+  body:{
+    "p_id": 1002,
+    "r_uid": 1003,
+    "n_id": 1001,
+  }
+ */
+  router.post('push/pass/message', (req, res) => {
+    var p_id = req.body.p_id;
+    var r_uid = req.body.r_uid;
+    var n_id = req.body.n_id;
+    var type = 2;
+    var current_time =  moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
+    var sql = 'insert into `Message` (e_p_id,r_uid,n_id,type,date,content,status) values(?,?,?,?,?,?,?)';
+    params = [p_id,r_uid,n_id,type,current_time,'您的投递已通过','0'];
+    db.query(sql, [], function (results, fields) {
+      res.send({
+        status: 1,
+        msg: '您的投递已通过，已发送消息给对方',
+        data: results,
+      });
+    })
+  });
 
 /*
 拒绝通过投递信息接口  “/home/push/fail" post
@@ -192,24 +221,41 @@ body:{
 */
 router.post('push/fail', (req, res) => {
   var p_id = req.body.p_id;
-  var sql = "update push set status = 4 where p_id = '" + p_id+"'";
-    db.query(sql, [], function (results1, fields) {
-      db.query("select * from push where p_id=" + p_id, [], function (results2, fields) {
-        console.log(results2);
-        var current_time =  moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
-        var sql2 = 'insert into message (e_p_id,r_uid,n_id,type,date,content,status) values(?,?,?,?,?,?,?)';
-        params = [p_id,results2[0].t_uid,results2[0].info_id,'2',current_time,'您的投递已被拒绝','0'];
-        db.query(sql2, params, function (results3, fields) {
-          console.log(results3);
-          res.send({
-            status: 1,
-            msg: '您的投递已被拒绝，已发送消息给对方',
-            data: results3,
-          });  
-        })
-      })
+  var sql = "update `Push` set status = 4 where p_id = '" + p_id+"'";
+    db.query(sql, [], function (results, fields) {
+      res.send({
+        status: 1,
+        msg: '消息投递拒绝成功',
+        data: results,
+      });
     })
 });
+
+/**
+  拒绝通过投递信息接口消息接口  “/home/push/fail/message" post
+  body:{
+    "p_id": 1002,
+    "r_uid": 1003,
+    "n_id": 1001,
+  }
+ */
+  router.post('push/fail/message', (req, res) => {
+    var p_id = req.body.p_id;
+    var r_uid = req.body.r_uid;
+    var n_id = req.body.n_id;
+    var type = 2;
+    var current_time =  moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
+    var sql = 'insert into `Message` (e_p_id,r_uid,n_id,type,date,content,status) values(?,?,?,?,?,?,?)';
+    params = [p_id,r_uid,n_id,type,current_time,'您的投递已被拒绝','0'];
+    db.query(sql, [], function (results, fields) {
+      res.send({
+        status: 1,
+        msg: '投递已被拒绝，已发送消息给对方',
+        data: results,
+      });
+    })
+  });
+
 
 
 /*

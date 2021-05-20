@@ -123,7 +123,7 @@ router.post('/get', (req, res) => {
 });
 
 /*
-获取回复 “/comment/reply/get   post
+获取回复 “/comment/get/reply  post
 body:
    {
     "n_id": 1001,
