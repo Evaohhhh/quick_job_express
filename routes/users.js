@@ -69,7 +69,7 @@ router.post('/verify/pass', (req, res) => {
 /**
  * 企业验证通过  “/users/verify/pass/message”   post  
  */
- router.post('/verify/pass', (req, res) => {
+ router.post('/verify/pass/message', (req, res) => {
   const body = req.body;
   var u_id = body.u_id;
   var current_time =  moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
@@ -91,17 +91,16 @@ router.post('/verify/pass', (req, res) => {
 
 
 /*
-获取个人信息  “/users/info”   post   
+获取个人信息  “/users/info”   get   
 body:
    {
     "u_id": 1001,
-
   }
 */
-router.post('/info”', (req, res) => {
-  const body = req.body;
-  var u_id = body.u_id;
-  var sql = "select * from `User` where u_id = '"+u_id+"'";
+router.get('/info”', (req, res) => {
+  const query = req.query;
+  var u_id = query.u_id;
+  var sql = "select * from User where u_id = '"+u_id+"'";
     db.query(sql,[], function (results, fields) {
       console.log(results);
       res.send({
