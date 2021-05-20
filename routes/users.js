@@ -67,7 +67,7 @@ router.post('/verify/pass', (req, res) => {
 });
 
 /**
- * 企业验证通过消息发送接口 “/users/verify/pass/message”   post  
+ * 企业验证通过  “/users/verify/pass/message”   post  
  */
  router.post('/verify/pass', (req, res) => {
   const body = req.body;
@@ -83,6 +83,7 @@ router.post('/verify/pass', (req, res) => {
       data: results,
     });  
   })
+});
 
 
 
