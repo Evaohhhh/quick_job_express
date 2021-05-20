@@ -58,20 +58,31 @@ router.post('/verify/pass', (req, res) => {
   var u_id = body.u_id;
   var sql = "update User set u_is_certify = 1 where u_id  = '"+ u_id + "' ";
     db.query(sql, [], function (results, fields) {
-      console.log(results);
-      var current_time =  moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
-      var sql2 = 'insert into message (r_uid,type,date,content,status) values(?,?,?,?,?)';
-      params = [u_id,'1',current_time,'您的企业认证已通过','0'];
-      db.query(sql2, params, function (results3, fields) {
-        console.log(results3);
-        res.send({
-          status: 1,
-          msg: '您的投递已通过，已发送消息给对方',
-          data: results3,
-        });  
-      })
+      res.send({
+        status: 1,
+        msg: '您的投递已通过',
+        data: results,
+      });  
     })
 });
+
+/**
+ * 企业验证通过消息发送接口 “/users/verify/pass/message”   post  
+ */
+ router.post('/verify/pass', (req, res) => {
+  const body = req.body;
+  var u_id = body.u_id;
+  var current_time =  moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
+  var sql = 'insert into message (r_uid,type,date,content,status) values(?,?,?,?,?)';
+  params = [u_id,'1',current_time,'您的企业认证已通过','0'];
+  db.query(sql, params, function (results, fields) {
+    console.log(results3);
+    res.send({
+      status: 1,
+      msg: '您的投递已通过，已发送消息给对方',
+      data: results,
+    });  
+  })
 
 
 

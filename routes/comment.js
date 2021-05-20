@@ -64,7 +64,8 @@ router.post('/reply', (req, res) => {
   var c_id = body.c_id;
   var c_reply = body.c_reply;
   var r_uid = body.r_uid;
-  var sql = "update comment set c_reply = '"+c_reply+"' ,r_uid = '"+r_uid+"' where c_id = '"+c_id+"'";
+  var current_time =  moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
+  var sql = "update comment set c_reply = '"+c_reply+"' ,r_uid = '"+r_uid+", r_time = '"+current_time+"' where c_id = '"+c_id+"'";
   db.query(sql, params, function (results, fields) {
     res.send({
       status: 1,
