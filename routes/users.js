@@ -56,7 +56,7 @@ body:
 router.post('/verify/pass', (req, res) => {
   const body = req.body;
   var u_id = body.u_id;
-  var sql = "update User set u_is_certify = 1 where u_id  = '"+ u_id + "' ";
+  var sql = "update User set c_is_certify = 1 where u_id  = '"+ u_id + "' ";
     db.query(sql, [], function (results, fields) {
       res.send({
         status: 1,
