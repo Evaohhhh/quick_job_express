@@ -36,7 +36,8 @@ router.post('/push', (req, res) => {
 router.post('/push/success', (req, res) => {
   const query = req.query;
   var n_id = query.n_id;
-  var sql = "update `JobInfo` set n_com_num = n_com_num + 1 where n_id = '"+n_id+"'";
+  //update JobInfo,`Comment` set JobInfo.n_com_num =  (select count(*) from `Comment` where `Comment`.n_id = 1002) where JobInfo.n_id=1002
+  var sql = "update `JobInfo`,`Comment` set JobInfo.n_com_num = (select count(*) from `Comment ` where `Comment `.n_id = '"+n_id+"') where JobInfo.n_id= '"+n_id+"'";
     db.query(sql, [], function (results, fields) {
       res.send({
         status: 1,
@@ -64,7 +65,7 @@ router.post('/reply', (req, res) => {
   var c_reply = body.c_reply;
   var r_uid = body.r_uid;
   var current_time =  moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
-  var sql = "update comment set c_reply = '"+c_reply+"' ,r_uid = '"+r_uid+", r_time = '"+current_time+"' where c_id = '"+c_id+"'";
+  var sql = "update `Comment` set c_reply = '"+c_reply+"' ,r_uid = '"+r_uid+", r_time = '"+current_time+"' where c_id = '"+c_id+"'";
   db.query(sql, params, function (results, fields) {
     res.send({
       status: 1,
@@ -151,7 +152,7 @@ router.post('/delete', (req, res) => {
 */
 router.get('/mget', (req, res) => {
   const body = req.body;
-  var sql = "select * from `comment` ";
+  var sql = "select * from `Comment` ";
     db.query(sql, [], function (results, fields) {
       console.log(results);
       res.send({
