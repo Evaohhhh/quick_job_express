@@ -12,6 +12,7 @@ var homeRouter = require('./routes/home');
 var uploadRouter = require('./routes/upload');
 var messageRouter = require('./routes/message');
 var commentRouter = require('./routes/comment');
+var pushRouter = require('./routes/push');
 
 
 
@@ -53,6 +54,7 @@ app.use('/home', homeRouter);
 app.use('/upload', uploadRouter);
 app.use('/message', messageRouter);
 app.use('/comment', commentRouter);
+app.use('/push', pushRouter);
 
 
 // catch 404 and forward to error handler
