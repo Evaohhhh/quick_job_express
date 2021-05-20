@@ -76,7 +76,7 @@ router.post('/verify/pass', (req, res) => {
   var sql = 'insert into message (r_uid,type,date,content,status) values(?,?,?,?,?)';
   params = [u_id,'1',current_time,'您的企业认证已通过','0'];
   db.query(sql, params, function (results, fields) {
-    console.log(results3);
+    console.log(results);
     res.send({
       status: 1,
       msg: '您的投递已通过，已发送消息给对方',
