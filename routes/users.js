@@ -91,15 +91,15 @@ router.post('/verify/pass', (req, res) => {
 
 
 /*
-获取个人信息  “/users/info”   get   
+获取个人信息  “/users/info”   post   
 body:
    {
     "u_id": 1001,
   }
 */
-router.get('/info”', (req, res) => {
-  const query = req.query;
-  var u_id = query.u_id;
+router.post('/info', (req, res) => {
+  const body = req.body;
+  var u_id = body.u_id;
   var sql = "select * from User where u_id = '"+u_id+"'";
     db.query(sql,[], function (results, fields) {
       console.log(results);
@@ -140,7 +140,7 @@ router.post('/update/img', (req, res) => {
 获取所有用户信息 “/users/mget   get  
 
 */
-router.get('/mget”', (req, res) => {
+router.get('/mget', (req, res) => {
   var sql = "select * from  `user` ";
     db.query(sql,[], function (results, fields) {
       console.log(results);
