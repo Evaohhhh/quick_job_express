@@ -122,6 +122,28 @@ router.post('/get', (req, res) => {
     })
 });
 
+/*
+获取回复 “/comment/reply/get   post
+body:
+   {
+    "n_id": 1001,
+  }
+*/
+router.post('/get/reply', (req, res) => {
+  const body = req.body;
+  var n_id = body.n_id;
+//select * from `Comment` c, `User` u where c.c_uid = u.u_id and n_id = 1002 order by time
+  var sql = "select * from `Comment` c, `User` u where c.r_uid = u.u_id  and n_id = '"+n_id+"' order by time";
+    db.query(sql, [], function (results, fields) {
+      console.log(results);
+      res.send({
+        status: 1,
+        msg: '获取回复信息成功',
+        data: results,
+      });
+    })
+});
+
 
 
 /*
