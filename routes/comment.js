@@ -37,7 +37,7 @@ router.post('/push/success', (req, res) => {
   const query = req.query;
   var n_id = query.n_id;
   //update JobInfo,`Comment` set JobInfo.n_com_num =  (select count(*) from `Comment` where `Comment`.n_id = 1002) where JobInfo.n_id=1002
-  var sql = "update `JobInfo`,`Comment` set JobInfo.n_com_num = (select count(*) from `Comment ` where `Comment `.n_id = '"+n_id+"') where JobInfo.n_id= '"+n_id+"'";
+  var sql = "update `JobInfo`,`Comment` set  `JobInfo`.n_com_num = (select count(*) from `Comment` where `Comment`.n_id = '"+n_id+"') where  `JobInfo`.n_id= '"+n_id+"'";
     db.query(sql, [], function (results, fields) {
       res.send({
         status: 1,
