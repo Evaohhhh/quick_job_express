@@ -26,7 +26,7 @@ body:
 */
 router.post('/verify', (req, res) => {
   const body = req.body;
-  var u_id = req.u_id;
+  var u_id = body.u_id;
   var name = body.name;
   var department = body.department;
   var job = body.job;
@@ -34,9 +34,8 @@ router.post('/verify', (req, res) => {
   var pic2 = body.pic2;
   var info = body.info;
 //"UPDATE User (c_name,c_department,c_job,c_job_pic,c_pic,c_info) VALUES (?,?,?,?,?,?) where u_id = '"+u_id+"'";
-  var sql = "UPDATE User set c_name='"+name+"', c_departmen='"+department+"', c_job='"+job+"', c_job_pic='"+pic1+"', c_pic='"+pic2+"', c_info='"+info+"' where u_id='"+u_id+"'";
-    var params = [name,department,job,pic1,pic2,info];
-    db.query(sql, params, function (results, fields) {
+  var sql = "UPDATE User set c_name='"+name+"', c_department='"+department+"', c_job='"+job+"', c_job_pic='"+pic1+"', c_pic='"+pic2+"', c_info='"+info+"' where u_id='"+u_id+"' ";
+    db.query(sql, [], function (results, fields) {
       console.log(results);
       res.send({
         status: 1,
