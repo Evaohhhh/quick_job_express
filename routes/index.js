@@ -26,7 +26,7 @@ router.get('/file', function (req, res) {
   const query = req.query;
   const name = query.name;
   console.log(req.query)
-  res.sendFile( __dirname.slice(0,-6) + "/public/temp_file/" + name);
+  res.sendFile( __dirname.slice(0,-6) + "/public/temp_files/" + name);
   console.log("Request for " + req.url + " received.");
 })
 /*
