@@ -33,8 +33,8 @@ router.post('/verify', (req, res) => {
   var pic1 = body.pic1;
   var pic2 = body.pic2;
   var info = body.info;
-
-  var sql = "INSERT INTO User (c_name,c_department,c_job,c_job_pic,c_pic,c_info) VALUES (?,?,?,?,?,?) where u_id = '"+u_id+"'";
+//"UPDATE User (c_name,c_department,c_job,c_job_pic,c_pic,c_info) VALUES (?,?,?,?,?,?) where u_id = '"+u_id+"'";
+  var sql = "UPDATE User set c_name='"+name+"', c_departmen='"+department+"', c_job='"+job+"', c_job_pic='"+pic1+"', c_pic='"+pic2+"', c_info='"+info+"' where u_id='"+u_id+"'";
     var params = [name,department,job,pic1,pic2,info];
     db.query(sql, params, function (results, fields) {
       console.log(results);
