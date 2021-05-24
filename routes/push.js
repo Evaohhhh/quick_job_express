@@ -12,7 +12,7 @@ var moment = require('moment');
  router.post('/get', (req, res) => {
   const body = req.body;
   var n_id = body.n_id;
-  var sql = "select * from Push,User,JobInfo where Push.info_id = JobInfo.n_id and Job_Info.post_u_id = User.u_id  and info_id = '"+n_id+"'";
+  var sql = "select * from Push where info_id = '"+n_id+"'";
   db.query(sql, [], function (results, fields) {
     res.send({
       status: 0,
