@@ -111,6 +111,7 @@ body:
   }
 */
 router.post('/register/second', (req, res) => {
+  console.log(req.body)
   const body = req.body;
   var name = body.name;
   var phone = body.phone;
@@ -119,7 +120,7 @@ router.post('/register/second', (req, res) => {
   var school = body.school;
   var u_intro = body.u_intro;
   var u_sex = body.u_sex
-  var sql = "update User set u_name = '"+name+"'  ,u_graduation_time= '"+graduation_time+"',u_expert = '"+expert+"',u_school= '"+school+"', u_intro = '"+u_intro+"', u_sex = '"+u_sex+"' where phone = '"+phone+"' ";
+  var sql = "update User set u_name = '"+name+"'  ,u_graduation_time= '"+graduation_time+"',u_expert = '"+expert+"',u_school= '"+school+"', u_intro = '"+u_intro+"', u_sex = '"+u_sex+"' where u_phone = '"+phone+"' ";
   db.query(sql, [], function (results, fields) {
     res.send({
       status: 0,
