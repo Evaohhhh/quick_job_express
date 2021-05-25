@@ -118,7 +118,8 @@ router.post('/register/second', (req, res) => {
   var expert = body.expert;
   var school = body.school;
   var u_intro = body.u_intro;
-  var sql = "update User set u_name = '"+name+"'  ,u_graduation_time= '"+graduation_time+"',u_expert = '"+expert+"',u_school= '"+school+"', u_intro = '"+u_intro+"' where phone = '"+phone+"' ";
+  var u_sex = body.u_sex
+  var sql = "update User set u_name = '"+name+"'  ,u_graduation_time= '"+graduation_time+"',u_expert = '"+expert+"',u_school= '"+school+"', u_intro = '"+u_intro+"', u_sex = '"+u_sex+"' where phone = '"+phone+"' ";
   db.query(sql, [], function (results, fields) {
     res.send({
       status: 0,
