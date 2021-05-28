@@ -89,17 +89,32 @@ router.post('/get', (req, res) => {
 });
 
 /*
-获取所有消息 “/message/mget   get
- 
+获取所有消息 “/message/mget/system   get
 */
-router.get('/mget', (req, res) => {
+router.get('/mget/system', (req, res) => {
   //"select Push.*, User.u_id, User.u_name, User.u_pic, JobInfo.n_id, JobInfo.post_u_id, JobInfo.c_name, JobInfo.job_name from User, JobInfo, Push where Push.info_id = JobInfo.n_id and JobInfo.post_u_id = User.u_id";
-  var sql = "select * from `Message`";
+  var sql = "select * `Message` where type = 1";
   db.query(sql, [], function (results, fields) {
     console.log(results);
     res.send({
       status: 1,
-      msg: '所有消息获取成功',
+      msg: '所有系统消息获取成功',
+      data: results,
+    });
+  })
+});
+
+/*
+获取所有消息 “/message/mget/push   get
+*/
+router.get('/mget/push', (req, res) => {
+  //"select Push.*, User.u_id, User.u_name, User.u_pic, JobInfo.n_id, JobInfo.post_u_id, JobInfo.c_name, JobInfo.job_name from User, JobInfo, Push where Push.info_id = JobInfo.n_id and JobInfo.post_u_id = User.u_id";
+  var sql = "select Push.*, JobInfo.n_id, JobInfo.post_u_id, JobInfo.c_name, JobInfo.job_name from `Message`, JobInfo where Message.n_id = JobInfo.n_id and Message.type = 2";
+  db.query(sql, [], function (results, fields) {
+    console.log(results);
+    res.send({
+      status: 1,
+      msg: '所有投递消息获取成功',
       data: results,
     });
   })
@@ -111,7 +126,7 @@ router.get('/mget', (req, res) => {
 */
 router.get('/mget/letter', (req, res) => {
   //"select Push.*, User.u_id, User.u_name, User.u_pic, JobInfo.n_id, JobInfo.post_u_id, JobInfo.c_name, JobInfo.job_name from User, JobInfo, Push where Push.info_id = JobInfo.n_id and JobInfo.post_u_id = User.u_id";
-  var sql = "select `Message`.*, User.u_id, User.u_name, User.u_pic from `Message`, User where `Message`.t_uid = User.u_id";
+  var sql = "select `Message`.*, User.u_id, JobInfo.n_id, User.u_name, User.u_pic, JobInfo.c_name, JobInfo.job_name from `Message`, User, JobInfo where `Message`.t_uid = User.u_id and `Message`.n_id = JobInfo.n_id Message.type = 3";
   db.query(sql, [], function (results, fields) {
     console.log(results);
     res.send({
