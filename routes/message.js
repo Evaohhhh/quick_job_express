@@ -96,6 +96,25 @@ router.get('/mget', (req, res) => {
   const body = req.body;
   var type = body.type;
   //"select Push.*, User.u_id, User.u_name, User.u_pic, JobInfo.n_id, JobInfo.post_u_id, JobInfo.c_name, JobInfo.job_name from User, JobInfo, Push where Push.info_id = JobInfo.n_id and JobInfo.post_u_id = User.u_id";
+  var sql = "select * from `Message`";
+  db.query(sql, [], function (results, fields) {
+    console.log(results);
+    res.send({
+      status: 1,
+      msg: '所有消息获取成功',
+      data: results,
+    });
+  })
+});
+
+/*
+获取所有私信 “/message/letter  get
+ 
+*/
+router.get('/mget/letter', (req, res) => {
+  const body = req.body;
+  var type = body.type;
+  //"select Push.*, User.u_id, User.u_name, User.u_pic, JobInfo.n_id, JobInfo.post_u_id, JobInfo.c_name, JobInfo.job_name from User, JobInfo, Push where Push.info_id = JobInfo.n_id and JobInfo.post_u_id = User.u_id";
   var sql = "select `Message`.*, User.u_id, User.u_name, User.u_pic from `Message`, User where `Message`.t_uid = User.u_id";
   db.query(sql, [], function (results, fields) {
     console.log(results);
