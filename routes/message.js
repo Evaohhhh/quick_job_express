@@ -109,7 +109,7 @@ router.get('/mget/system', (req, res) => {
 */
 router.get('/mget/push', (req, res) => {
   //"select Push.*, User.u_id, User.u_name, User.u_pic, JobInfo.n_id, JobInfo.post_u_id, JobInfo.c_name, JobInfo.job_name from User, JobInfo, Push where Push.info_id = JobInfo.n_id and JobInfo.post_u_id = User.u_id";
-  var sql = "select Push.*, JobInfo.n_id, JobInfo.post_u_id, JobInfo.c_name, JobInfo.job_name from `Message`, JobInfo where Message.n_id = JobInfo.n_id and Message.type = 2";
+  var sql = "select Message.*, JobInfo.n_id, JobInfo.post_u_id, JobInfo.c_name, JobInfo.job_name from `Message`, JobInfo where Message.n_id = JobInfo.n_id and Message.type = 2";
   db.query(sql, [], function (results, fields) {
     console.log(results);
     res.send({
