@@ -121,10 +121,10 @@ router.get('/mget/push', (req, res) => {
 });
 
 /*
-获取所有私信 “/message/mget/letter  get
+获取所有私信 “/message/mget/reply  get
  
 */
-router.get('/mget/letter', (req, res) => {
+router.get('/mget/reply', (req, res) => {
   //"select Push.*, User.u_id, User.u_name, User.u_pic, JobInfo.n_id, JobInfo.post_u_id, JobInfo.c_name, JobInfo.job_name from User, JobInfo, Push where Push.info_id = JobInfo.n_id and JobInfo.post_u_id = User.u_id";
   var sql = "select `Message`.*, User.u_id, JobInfo.n_id, User.u_name, User.u_pic, JobInfo.c_name, JobInfo.job_name from `Message`, User, JobInfo where `Message`.t_uid = User.u_id and `Message`.n_id = JobInfo.n_id and Message.type = 3";
   db.query(sql, [], function (results, fields) {
@@ -132,6 +132,23 @@ router.get('/mget/letter', (req, res) => {
     res.send({
       status: 1,
       msg: '所有letter获取成功',
+      data: results,
+    });
+  })
+});
+
+/*
+获取所有私信 “/message/mget/letter  get
+ 
+*/
+router.get('/mget/letter', (req, res) => {
+  //"select Push.*, User.u_id, User.u_name, User.u_pic, JobInfo.n_id, JobInfo.post_u_id, JobInfo.c_name, JobInfo.job_name from User, JobInfo, Push where Push.info_id = JobInfo.n_id and JobInfo.post_u_id = User.u_id";
+  var sql = "select `Message`.*, User.u_id, User.u_name, User.u_pic from `Message`, User where `Message`.t_uid = User.u_id and Message.type = 4";
+  db.query(sql, [], function (results, fields) {
+    console.log(results);
+    res.send({
+      status: 1,
+      msg: '所有私聊获取成功',
       data: results,
     });
   })
