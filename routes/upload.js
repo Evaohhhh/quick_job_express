@@ -57,13 +57,12 @@ router.post('/files',upload_files.any(), function (req, res, next) {
     if(err){return res.send('上传失败')}
     //如果读取成功
     //拼接成图片名
-     //声明图片名字为时间戳和随机数拼接成的，尽量确保唯一性
-     let time = Date.now()+parseInt(Math.random()*999)+parseInt(Math.random()*2222);
-     //拓展名
-     let extname = req.files[0].mimetype.split('/')[1]
-     //拼接成图片名
-     let keepname = time+'.'+extname
-
+   //声明图片名字为时间戳和随机数拼接成的，尽量确保唯一性
+   let time = Date.now()+parseInt(Math.random()*999)+parseInt(Math.random()*2222);
+   //拓展名
+   let extname = req.files[0].mimetype.split('/')[1]
+   //拼接成图片名
+   let keepname = time+'.'+extname
     //三个参数
     //1.图片的绝对路径
     //2.写入的内容
