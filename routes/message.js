@@ -121,7 +121,7 @@ router.get('/mget/push', (req, res) => {
 });
 
 /*
-获取所有私信 “/message/mget/reply  get
+获取所有回复 “/message/mget/reply  get
  
 */
 router.get('/mget/reply', (req, res) => {

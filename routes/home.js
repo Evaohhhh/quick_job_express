@@ -176,7 +176,7 @@ body:{
 */
 router.post('push/pass', (req, res) => {
   var p_id = req.body.p_id;
-  var sql = "Update `Push` set status = 3 where p_id = '" + p_id+"'";
+  var sql = "Update `Push` set status = 3 where p_id = '"+p_id+"'";
     db.query(sql, [], function (results, fields) {
       res.send({
         status: 1,
@@ -221,7 +221,7 @@ body:{
 */
 router.post('push/fail', (req, res) => {
   var p_id = req.body.p_id;
-  var sql = "update `Push` set status = 4 where p_id = '" + p_id+"'";
+  var sql = "update `Push` set status = 4 where p_id = '"+p_id+"'";
     db.query(sql, [], function (results, fields) {
       res.send({
         status: 1,
