@@ -129,9 +129,9 @@ body:{
   "p_id": "1001"
 }
 */
-router.post('push/see', (req, res) => {
+router.post('/push/see', (req, res) => {
   var p_id = req.body.p_id;
-  var sql = "update `Push` set status = 2 where p_id = '" + p_id+"'";
+  var sql = "update `Push` set status = 2 where p_id = '"+p_id+"'";
     db.query(sql, [], function (results, fields) {
       res.send({
         status: 1,
@@ -148,7 +148,7 @@ router.post('push/see', (req, res) => {
     "n_id": 1001,
   }
  */
-router.post('push/see/message', (req, res) => {
+router.post('/push/see/message', (req, res) => {
   var p_id = req.body.p_id;
   var r_uid = req.body.r_uid;
   var n_id = req.body.n_id;
@@ -174,8 +174,9 @@ body:{
   "p_id": 1001
 }
 */
-router.post('push/pass', (req, res) => {
+router.post("/push/pass", (req, res) => {
   var p_id = req.body.p_id;
+  console.log(p_id)
   var sql = "Update `Push` set status = 3 where p_id = '"+p_id+"'";
     db.query(sql, [], function (results, fields) {
       res.send({
@@ -183,8 +184,7 @@ router.post('push/pass', (req, res) => {
         msg: '通过投递信息',
         data: results,
       });
-      
-    })
+    });
 });
 
 /**
@@ -195,7 +195,7 @@ router.post('push/pass', (req, res) => {
     "n_id": 1001,
   }
  */
-  router.post('push/pass/message', (req, res) => {
+  router.post('/push/pass/message', (req, res) => {
     var p_id = req.body.p_id;
     var r_uid = req.body.r_uid;
     var n_id = req.body.n_id;
@@ -219,7 +219,7 @@ body:{
   "p_id": "1001"
 }
 */
-router.post('push/fail', (req, res) => {
+router.post('/push/fail', (req, res) => {
   var p_id = req.body.p_id;
   var sql = "update `Push` set status = 4 where p_id = '"+p_id+"'";
     db.query(sql, [], function (results, fields) {
@@ -239,7 +239,7 @@ router.post('push/fail', (req, res) => {
     "n_id": 1001,
   }
  */
-  router.post('push/fail/message', (req, res) => {
+  router.post('/push/fail/message', (req, res) => {
     var p_id = req.body.p_id;
     var r_uid = req.body.r_uid;
     var n_id = req.body.n_id;
