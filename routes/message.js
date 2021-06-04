@@ -45,7 +45,7 @@ router.post('/send', (req, res) => {
 });
 
 /*
-消息已读接口  “/see   post   
+消息已读接口  “message/see   post   
 body:
    {
     "m_id": "1001",
@@ -54,13 +54,32 @@ body:
 router.post('/see', (req, res) => {
   const body = req.body;
   var m_id = body.m_id;
-  var sql = "update Message set status = 1 where m_id = '"+m_id+"'";
+  var sql = "update Message set status = 0 where m_id = '"+m_id+"'";
     var params = [t_uid,r_uid,type,status,content,current_time];
     db.query(sql, params, function (results, fields) {
       console.log(results);
       res.send({
         status: 1,
         msg: '私信已查看',
+        data: results,
+      });
+    })
+});
+
+/*
+消息已读接口  “message/see   get   
+body:
+   {
+    "m_id": "1001",
+  }
+*/
+router.get('/unsee/num', (req, res) => {
+  var sql = "select count(*) from Message where status = 1";
+    db.query(sql, [], function (results, fields) {
+      console.log(results);
+      res.send({
+        status: 1,
+        msg: '获取未读消息的数量',
         data: results,
       });
     })
