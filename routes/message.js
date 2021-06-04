@@ -67,14 +67,14 @@ router.post('/see', (req, res) => {
 });
 
 /*
-消息已读接口  “message/see   get   
+获取未读消息的数量 “message/see   get   
 body:
    {
     "m_id": "1001",
   }
 */
 router.get('/unsee/num', (req, res) => {
-  var sql = "select count(*) from Message where status = 1";
+  var sql = "select count(*) as num from Message where status = 1";
     db.query(sql, [], function (results, fields) {
       console.log(results);
       res.send({
