@@ -47,7 +47,7 @@ router.post('/release', (req, res) => {
   var way_intro = body.way_intro;
   var city = body.city;
 
-  var sql = 'INSERT INTO JobInfo (u_id,n_type,job_name,job_intro,c_intro,job_demand,n_phone,c_name,n_email,begin_time,end_time,status,n_other,job_dirction,is_this,way_intro,city) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)';
+  var sql = 'INSERT INTO JobInfo (post_u_id,n_type,job_name,job_intro,c_intro,job_demand,n_phone,c_name,n_email,begin_time,end_time,status,n_other,job_dirction,is_this,way_intro,city) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)';
     var params = [u_id,n_type,job_name,job_intro,c_intro,job_demand,n_phone,c_name,n_email,begin_time,end_time,status,n_other,job_dirction,is_this,way_intro,city];
     db.query(sql, params, function (results, fields) {
       console.log(results);
