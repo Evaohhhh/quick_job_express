@@ -71,7 +71,7 @@ router.post('/register/first', (req, res) => {
   var code = body.code;
   var identity = 1;
   var is_certify = 0;
-  var pic = 'http://8.129.1.95:3001/img?name=1620696008261.jpeg';
+  var pic = 'http://8.129.1.95:3001/img?name=1621310273245.jpeg';
   var sql1 = `select count(*) from User  where u_phone = "${phone}" `;
   db.query(sql1, [], function (results, fields) {
     console.log(results);
