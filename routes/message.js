@@ -27,7 +27,7 @@ router.post('/send', (req, res) => {
   var t_uid = body.t_uid;
   var r_uid = body.r_uid;
   var type = 4;
-  var status = 0;
+  var status = 1;
   var content = body.content;
 
   var current_time =  moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
@@ -172,6 +172,23 @@ router.get('/mget/letter', (req, res) => {
     });
   })
 });
+
+/*
+获取所有私信 “/message/delete  get
+ 
+*/
+router.get('/delete', (req, res) => {
+  var sql = "delete * from Message where m_id = '"+req.query.m_id+"'";
+  db.query(sql, [], function (results, fields) {
+    console.log(results);
+    res.send({
+      status: 1,
+      msg: '删除成功',
+      data: results,
+    });
+  })
+});
+
 
 
 

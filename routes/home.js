@@ -155,7 +155,7 @@ router.post('/push/see/message', (req, res) => {
   var type = 2;
   var current_time =  moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
   var sql = 'insert into `Message` (e_p_id,r_uid,n_id,type,date,content,status) values(?,?,?,?,?,?,?)';
-  params = [p_id,r_uid,n_id,type,current_time,'投递已被查看','0'];
+  params = [p_id,r_uid,n_id,type,current_time,'投递已被查看','1'];
   db.query(sql, [], function (results, fields) {
     res.send({
       status: 1,
@@ -202,7 +202,7 @@ router.post("/push/pass", (req, res) => {
     var type = 2;
     var current_time =  moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
     var sql = 'insert into `Message` (e_p_id,r_uid,n_id,type,date,content,status) values(?,?,?,?,?,?,?)';
-    params = [p_id,r_uid,n_id,type,current_time,'您的投递已通过','0'];
+    params = [p_id,r_uid,n_id,type,current_time,'您的投递已通过','1'];
     db.query(sql, [], function (results, fields) {
       res.send({
         status: 1,
@@ -246,7 +246,7 @@ router.post('/push/fail', (req, res) => {
     var type = 2;
     var current_time =  moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
     var sql = 'insert into `Message` (e_p_id,r_uid,n_id,type,date,content,status) values(?,?,?,?,?,?,?)';
-    params = [p_id,r_uid,n_id,type,current_time,'您的投递已被拒绝','0'];
+    params = [p_id,r_uid,n_id,type,current_time,'您的投递已被拒绝','1'];
     db.query(sql, [], function (results, fields) {
       res.send({
         status: 1,
