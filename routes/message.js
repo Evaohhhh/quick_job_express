@@ -55,8 +55,7 @@ router.post('/see', (req, res) => {
   const body = req.body;
   var m_id = body.m_id;
   var sql = "update Message set status = 0 where m_id = '"+m_id+"'";
-    var params = [t_uid,r_uid,type,status,content,current_time];
-    db.query(sql, params, function (results, fields) {
+    db.query(sql, [], function (results, fields) {
       console.log(results);
       res.send({
         status: 1,
