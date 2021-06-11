@@ -178,7 +178,7 @@ router.get('/mget/letter', (req, res) => {
  
 */
 router.get('/delete', (req, res) => {
-  var sql = "delete * from Message where m_id = '"+req.query.m_id+"'";
+  var sql = "delete from `Message` where m_id = '"+req.query.m_id+"'";
   db.query(sql, [], function (results, fields) {
     console.log(results);
     res.send({
