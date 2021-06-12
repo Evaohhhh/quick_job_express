@@ -73,7 +73,8 @@ body:
   }
 */
 router.get('/unsee/num', (req, res) => {
-  var sql = "select count(*) as num from Message where status = 1";
+  var u_id =  req.query.u_id
+  var sql = "select count(*) as num from Message where status = 1 and Message.r_uid = '"+u_id+"'";
     db.query(sql, [], function (results, fields) {
       console.log(results);
       res.send({
