@@ -263,7 +263,7 @@ router.post('/push/fail', (req, res) => {
 */
 router.get('/push/mget', (req, res) => {
   var u_id = req.query.u_id;
-  var sql = "select Push.*, User.u_id, User.u_name, User.u_pic, JobInfo.n_id, JobInfo.post_u_id, JobInfo.c_name, JobInfo.job_name from User, JobInfo, Push where Push.info_id = JobInfo.n_id and JobInfo.post_u_id = User.u_id where Push.t_uid = '"+u_id+"'";
+  var sql = "select Push.*, User.u_id, User.u_name, User.u_pic, JobInfo.n_id, JobInfo.post_u_id, JobInfo.c_name, JobInfo.job_name from User, JobInfo, Push where Push.info_id = JobInfo.n_id and JobInfo.post_u_id = User.u_id and Push.t_uid = '"+u_id+"'";
   db.query(sql, [], function (results, fields) {
     console.log(results);
     res.send({
