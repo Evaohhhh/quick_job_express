@@ -109,9 +109,11 @@ router.post('/get', (req, res) => {
 /*
 获取所有消息 “/message/mget/system   get
 */
+
 router.get('/mget/system', (req, res) => {
+  var u_id = req.query.u_id;
   //"select Push.*, User.u_id, User.u_name, User.u_pic, JobInfo.n_id, JobInfo.post_u_id, JobInfo.c_name, JobInfo.job_name from User, JobInfo, Push where Push.info_id = JobInfo.n_id and JobInfo.post_u_id = User.u_id";
-  var sql = "select * from `Message` where type = 1";
+  var sql = "select * from `Message` where type = 1 and r_uid = '"+u_id+"'";
   db.query(sql, [], function (results, fields) {
     console.log(results);
     res.send({
@@ -126,8 +128,9 @@ router.get('/mget/system', (req, res) => {
 获取所有消息 “/message/mget/push   get
 */
 router.get('/mget/push', (req, res) => {
+  var u_id = req.query.u_id;
   //"select Push.*, User.u_id, User.u_name, User.u_pic, JobInfo.n_id, JobInfo.post_u_id, JobInfo.c_name, JobInfo.job_name from User, JobInfo, Push where Push.info_id = JobInfo.n_id and JobInfo.post_u_id = User.u_id";
-  var sql = "select Message.*, JobInfo.n_id, JobInfo.post_u_id, JobInfo.c_name, JobInfo.job_name from `Message`, JobInfo where Message.n_id = JobInfo.n_id and Message.type = 2";
+  var sql = "select Message.*, JobInfo.n_id, JobInfo.post_u_id, JobInfo.c_name, JobInfo.job_name from `Message`, JobInfo where Message.n_id = JobInfo.n_id and Message.type = 2 and Message.r_uid = '"+u_id+"'";
   db.query(sql, [], function (results, fields) {
     console.log(results);
     res.send({
@@ -143,8 +146,9 @@ router.get('/mget/push', (req, res) => {
  
 */
 router.get('/mget/reply', (req, res) => {
+  var u_id = req.query.u_id;
   //"select Push.*, User.u_id, User.u_name, User.u_pic, JobInfo.n_id, JobInfo.post_u_id, JobInfo.c_name, JobInfo.job_name from User, JobInfo, Push where Push.info_id = JobInfo.n_id and JobInfo.post_u_id = User.u_id";
-  var sql = "select `Message`.*, User.u_id, JobInfo.n_id, User.u_name, User.u_pic, JobInfo.c_name, JobInfo.job_name from `Message`, User, JobInfo where `Message`.t_uid = User.u_id and `Message`.n_id = JobInfo.n_id and Message.type = 3";
+  var sql = "select `Message`.*, User.u_id, JobInfo.n_id, User.u_name, User.u_pic, JobInfo.c_name, JobInfo.job_name from `Message`, User, JobInfo where `Message`.t_uid = User.u_id and `Message`.n_id = JobInfo.n_id and Message.type = 3 and Message.r_uid = '"+u_id+"'";
   db.query(sql, [], function (results, fields) {
     console.log(results);
     res.send({
@@ -160,8 +164,9 @@ router.get('/mget/reply', (req, res) => {
  
 */
 router.get('/mget/letter', (req, res) => {
+  var u_id = req.query.u_id;
   //"select Push.*, User.u_id, User.u_name, User.u_pic, JobInfo.n_id, JobInfo.post_u_id, JobInfo.c_name, JobInfo.job_name from User, JobInfo, Push where Push.info_id = JobInfo.n_id and JobInfo.post_u_id = User.u_id";
-  var sql = "select `Message`.*, User.u_id, User.u_name, User.u_pic from `Message`, User where `Message`.t_uid = User.u_id and Message.type = 4";
+  var sql = "select `Message`.*, User.u_id, User.u_name, User.u_pic from `Message`, User where `Message`.t_uid = User.u_id and Message.type = 4 and Message.r_uid = '"+u_id+"'";
   db.query(sql, [], function (results, fields) {
     console.log(results);
     res.send({
