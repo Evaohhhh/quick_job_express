@@ -167,7 +167,7 @@ router.get('/mget/reply', (req, res) => {
 router.get('/mget/letter', (req, res) => {
   var u_id = req.query.u_id;
   //"select Push.*, User.u_id, User.u_name, User.u_pic, JobInfo.n_id, JobInfo.post_u_id, JobInfo.c_name, JobInfo.job_name from User, JobInfo, Push where Push.info_id = JobInfo.n_id and JobInfo.post_u_id = User.u_id";
-  var sql = "select `Message`.*, User.u_id, User.u_name, User.u_pic from `Message`, User where `Message`.t_uid = User.u_id and Message.type = 4 and Message.r_uid = '"+u_id+"'";
+  var sql = "select `Message`.*, User.u_id, User.u_name, User.u_pic from `Message`, User where `Message`.t_uid = User.u_id and Message.type = 4 and (Message.r_uid = '"+u_id+"' or Message.t_uid = '"+u_id+"')";
   db.query(sql, [], function (results, fields) {
     console.log(results);
     res.send({
