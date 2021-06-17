@@ -123,7 +123,7 @@ router.post('/update/img', (req, res) => {
   const body = req.body;
   var u_id = body.u_id;
   var u_pic = body.u_pic;
-  var sql = "update User set u_pic = '"+u_pic+"' where u_id = '"+u_pic+"'";
+  var sql = "update User set u_pic = '"+u_pic+"' where u_id = '"+u_id+"'";
     db.query(sql,[], function (results, fields) {
       console.log(results);
       res.send({
