@@ -90,7 +90,7 @@ body:
     var n_id = body.n_id;
     var current_time =  moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
     var sql = "insert into message (r_uid,t_uid,n_id,type,date,content,status) values(?,?,?,?,?,?,?)";
-    params = [r_uid,r_uid,n_id,'3',current_time,'您的评论已被回复','1'];
+    params = [r_uid,t_uid,n_id,'3',current_time,'您的评论已被回复','1'];
     db.query(sql, params, function (results, fields) {
       res.send({
         status: 1,
